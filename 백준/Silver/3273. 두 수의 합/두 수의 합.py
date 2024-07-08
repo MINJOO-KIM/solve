@@ -1,19 +1,18 @@
-import sys
-input = sys.stdin.readline
 n = int(input())
-arr = sorted(list(map(int, input().split())))
-x = int(input())
+arr = list(map(int, input().split()))
+ans = int(input())
+cnt=0
 
-cnt = 0
-left, right = 0, n-1
-while left < right:
-    num = arr[left] + arr[right]
-    if (num == x):
-        cnt +=1
-        left += 1
-    elif num < x:
-        left += 1
+arr.sort()
+start,end = 0,n-1
+
+while start<end:
+    hap=arr[start] + arr[end]
+    if hap==ans:
+        start+=1
+        cnt+=1
+    elif hap<ans:
+        start+=1
     else:
-        right -= 1
-        
+        end-=1
 print(cnt)
