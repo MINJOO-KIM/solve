@@ -10,7 +10,7 @@
         # 0 있으면 + used[dy,dx,dz]가 0이면 -> q에 추가
 
 # 며칠걸리는지
-    # max_cnt, cnt 비교 (큐에서 popleft할때마다)
+    # max_cnt, cnt 비교 (q.popleft()할 때)
 
 from collections import deque
 
