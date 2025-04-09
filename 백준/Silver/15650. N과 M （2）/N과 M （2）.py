@@ -1,13 +1,20 @@
-n,m = list(map(int,input().split()))
-s = []
-def dfs(start):
-    if len(s)==m:
-        print(' '.join(map(str,s)))
+# 조합
+n, l = map(int, input().split())
+nums = []
+for i in range(1,n+1):
+    nums.append(i)
+path=['']*l
+
+def dfs(level,start):
+    if level==l:
+        for i in range(level):
+            print(path[i],end=' ')
+        print()
         return
-    
-    for i in range(start,n+1):
-        if i not in s:
-            s.append(i)
-            dfs(i+1)
-            s.pop()
-dfs(1)
+    for i in range(start,n):
+
+        path[level]=nums[i]
+
+        dfs(level+1,i+1)
+
+dfs(0,0)
