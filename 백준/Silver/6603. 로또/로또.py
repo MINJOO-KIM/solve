@@ -1,22 +1,21 @@
-def dfs(n, s, tlst):
-    if n==6:    # 종료조건: 6개의 숫자 선택한 경우
-        ans.append(tlst)
+def dfs(level, start):
+    if level == 6:
+        for i in range(6):
+            print(path[i], end=" ")
+        print()
         return
-
-    for j in range(s, N):
-        dfs(n+1, j+1, tlst+[lst[j]])
-
+    for i in range(start, k):
+        path[level] = nums[i]
+        dfs(level + 1, i + 1)
+        
 while True:
-    lst_in = list(map(int, input().split()))
-    if lst_in[0]==0:    # 입력 종료
+    arr = list(map(int, input().split()))
+    if arr[0] == 0:
         break
+    k = arr[0]
+    nums = arr[1:]
+    nums.sort()
+    path = [''] * 6
 
-    N = lst_in[0]
-    lst = lst_in[1:]
-
-    ans = []
-    dfs(0, 0, [])
-
-    for lst in ans:
-        print(*lst)
+    dfs(0, 0)
     print()
