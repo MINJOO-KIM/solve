@@ -1,19 +1,24 @@
+from collections import deque
+
 import sys
 input = sys.stdin.readline
+
 n = int(input())
 lines = [tuple(map(int, input().split())) for _ in range(n)]
-lines.sort()  # 시작점을 기준으로 정렬!
+lines.sort()
 
-answer = 0
-start, end = lines[0]
+q = deque(lines)
+start,end = q.popleft()
+answer=0
 
-for x, y in lines[1:]:
-    if x <= end:  # 겹침
-        end = max(end, y)
-    else:
-        answer += end - start
-        start, end = x, y
+while q:
+    x,y=q.popleft()
+    if x<=end: # 새로운 시작점이 현재 끝점보다 작으면 시작점 겹침!
+        # 현재 시작점(start)~ 새로운 끝점(y)
+        end = max(end,y)
+    else: # 새로운 시작점이 끝점보다 크면 겹치지 않음!
+        answer+=end-start
+        start,end = x,y
 
-answer += end - start  # 마지막 구간 처리
-
+answer+=end-start
 print(answer)
