@@ -1,6 +1,8 @@
 import sys
 from collections import deque
 import copy
+
+input = sys.stdin.readline
 INF = int(1e9)
 
 n,m = map(int, input().split())
