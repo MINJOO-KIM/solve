@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 tc = int(input())
 for _ in range(1,tc+1):
     n = int(input())
