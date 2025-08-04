@@ -1,34 +1,39 @@
+import sys
 from collections import deque
+n,m = map(int, input().split())
+lst = [list(map(str, input())) for _ in range(n)]
+visited = [[False]*m for _ in range(n)]
+dy = [-1,0,0,1]
+dx = [0,-1,1,0]
 
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
-campus = []
-ix, iy = 0, 0 
-answer = 0
+cnt=0
 
-N, M = map(int, input().split()) 
+def bfs(i,j):
+    global cnt
+    q = deque()
+    q.append((i,j))
 
-for i in range(N):
-    campus.append(list(input()))
-    for j in range(M):
-        if campus[i][j] == 'I': 
-            ix, iy = i, j
+    while q:
+        y,x = q.popleft()
+        for i in range(4):
+            ny = y+dy[i]
+            nx = x+dx[i]
 
-visited = [[0] * M for _ in range(N)] 
+            if 0<=ny<n and 0<=nx<m and not visited[ny][nx]:
+                visited[ny][nx]=True
+                if lst[ny][nx]=='O':
+                    q.append((ny,nx))
+                elif lst[ny][nx]=='P':
+                    q.append((ny,nx))
+                    cnt+=1
 
-deq = deque()
-deq.append([ix, iy]) 
+for i in range(n):
+    for j in range(m):
+        if lst[i][j]=='I':
+            sy,sx = i, j
+            bfs(sy,sx)
 
-while deq:
-    x, y = deq.popleft()
-    for i in range(4):  
-        nx, ny = x + dx[i], y + dy[i]
-        if 0 <= nx < N and 0 <= ny < M and visited[nx][ny] == 0: 
-            visited[nx][ny] = 1 
-            if campus[nx][ny] == 'O':  
-                deq.append([nx, ny])
-            elif campus[nx][ny] == 'P':  
-                deq.append([nx, ny])
-                answer += 1 
-
-print('TT' if answer == 0 else answer)
+if cnt==0:
+    print('TT')
+else:
+    print(cnt)
