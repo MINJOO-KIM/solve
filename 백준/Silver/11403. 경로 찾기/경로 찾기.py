@@ -1,14 +1,24 @@
 import sys
+from collections import deque
 input = sys.stdin.readline
+
+def bfs(start):
+    q = deque()
+    q.append(start)
+    visited = [0]*n
+    while q:
+        now = q.popleft()
+        for next in range(n):
+            if graph[now][next]==1 and not visited[next]:
+                visited[next]=1
+                q.append(next)
+    return visited
 
 n = int(input())
 graph = [list(map(int, input().split())) for _ in range(n)]
 
-for k in range(n):
-    for i in range(n):
-        for j in range(n):
-            if graph[i][k] and graph[k][j]:
-                graph[i][j] =1
+for i in range(n):
+    graph[i]=bfs(i)
 
-for g in graph:
-    print(*g)
+for row in graph:
+    print(*row)
