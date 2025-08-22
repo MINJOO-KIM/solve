@@ -1,38 +1,35 @@
+import sys
 from collections import deque
-
-def bfs(y,x):
-    q = deque()
-    q.append([y,x])
-    visited[y][x]=1
-    directy = [-1,0,0,1]
-    directx = [0,-1,1,0]
-    while q:
-        # 1이면 큐에 추가
-        y,x=q.popleft()
-        for i in range(4):
-            dy=y+directy[i]
-            dx=x+directx[i]
-            if dy<0 or dx<0 or dy>=n or dx>=m:continue
-            if arr[dy][dx] == 1 and visited[dy][dx] != 1:
-                visited[dy][dx] = 1
-                q.append([dy,dx])
-    return
-
-t = int(input())
-for _ in range(t):
+input = sys.stdin.readline
+for _ in range(int(input())):
     m,n,k = map(int, input().split())
-    arr = [[0]*m for _ in range(n)]
-    visited = [[0]*m for _ in range(n)]
-    for _ in range(k):
-        x,y = map(int, input().split())
-        arr[y][x]=1
+    lst = [[0]*m for _ in range(n)]
 
-    # 1일 때 탐색 시작
+    for _ in range(k):
+        j,i = map(int, input().split())
+        lst[i][j]=1
     cnt=0
+
+    def bfs(y,x):
+        global cnt
+        dy = [-1,0,0,1]
+        dx = [0,-1,1,0]
+
+        q = deque()
+        q.append((y,x))
+        while q:
+            y,x = q.popleft()
+            for i in range(4):
+                ny = y+dy[i]
+                nx = x+dx[i]
+                if 0<=ny<n and 0<=nx<m and not visited[ny][nx] and lst[ny][nx]==1:
+                    visited[ny][nx]=True
+                    q.append((ny,nx))
+        cnt+=1
+
+    visited = [[False]*m for _ in range(n)]
     for i in range(n):
         for j in range(m):
-            if arr[i][j]==1 and visited[i][j]!=1:
+            if lst[i][j]==1 and not visited[i][j]:
                 bfs(i,j)
-                cnt+=1
-
     print(cnt)
