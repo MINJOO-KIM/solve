@@ -1,39 +1,37 @@
 from collections import deque
 def bfs(y,x,h):
     q = deque()
-    q.append([y,x])
+    q.append((y,x))
     visited[y][x]=1
 
     while q:
-        nowy,nowx = q.popleft()
-        visited[nowy][nowx]=1
+        y,x = q.popleft()
+        visited[y][x]=1
 
-        directy = [-1,0,0,1]
-        directx = [0,-1,1,0]
+        dy = [-1,0,0,1]
+        dx = [0,-1,1,0]
 
         for i in range(4):
-            dy = nowy+directy[i]
-            dx = nowx+directx[i]
+            ny = y+dy[i]
+            nx = x+dx[i]
 
-            if dy<0 or dx<0 or dy>=N or dx>=N: continue
-            if visited[dy][dx]==1: continue
-            if arr[dy][dx]>h:
-                q.append([dy,dx])
-                visited[dy][dx]=1
-# 영역 개수 세기
+            if 0<=ny<n and 0<=nx<n and not visited[ny][nx]:
+                if lst[ny][nx]>h:
+                    q.append((ny,nx))
+                    visited[ny][nx]=1
 def solve(h):
     cnt=0
-    for i in range(N):
-        for j in range(N):
-            if visited[i][j]==0 and arr[i][j]>h:
+    for i in range(n):
+        for j in range(n):
+            if not visited[i][j] and lst[i][j]>h:
                 bfs(i,j,h)
                 cnt+=1
     return cnt
 
-N = int(input())
-arr = [list(map(int, input().split())) for _ in range(N)]
+n = int(input())
+lst = [list(map(int, input().split())) for _ in range(n)]
 ans=0
 for h in range(100):
-    visited = [[0]*N for _ in range(N)]
+    visited = [[0]*n for _ in range(n)]
     ans = max(ans,solve(h))
 print(ans)
