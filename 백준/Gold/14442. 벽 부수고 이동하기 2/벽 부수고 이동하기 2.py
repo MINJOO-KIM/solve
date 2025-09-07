@@ -20,10 +20,9 @@ def bfs():
             ny = y+dy[i]
             nx = x+dx[i]
             if 0<=ny<n and 0<=nx<m:
-                if graph[ny][nx]==1 and not visited[ny][nx][k-1]:
-                    if k>0:
-                        visited[ny][nx][k-1]=visited[y][x][k]+1
-                        q.append((ny,nx,k-1))
+                if graph[ny][nx]==1 and k>0 and not visited[ny][nx][k-1]:
+                    visited[ny][nx][k-1]=visited[y][x][k]+1
+                    q.append((ny,nx,k-1))
                 elif graph[ny][nx]!=1 and not visited[ny][nx][k]:
                     visited[ny][nx][k]=visited[y][x][k]+1
                     q.append((ny,nx,k))
