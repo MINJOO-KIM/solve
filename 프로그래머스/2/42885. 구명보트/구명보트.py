@@ -1,16 +1,8 @@
 def solution(people, limit):
     answer = 0
+    # 70 50 80 50 people
+    # 100 limit
     
-    people.sort()
-    start = 0
-    end = len(people)-1
-    
-    while start <= end:
-        if people[start]+people[end]<=limit:
-            start+=1
-            end-=1
-        else:
-            end-=1
-        answer+=1
-    
+    # 일단 정렬하고, limit 절반보다 작은 경우가 있는 경우
+    # 조합을 해야하나..?
     return answer
