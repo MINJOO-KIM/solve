@@ -1,37 +1,31 @@
 import sys
+input = sys.stdin.readline
 from collections import deque
 
-N = int(sys.stdin.readline())
-DQ = deque()
-for _ in range(N):
-    S = sys.stdin.readline().split()
-
-    if S[0] == 'push':  # 정수 X를 큐에 넣는다.
-        DQ.append(int(S[1]))
-
-    if S[0] == 'pop':   # 큐에서 가장 앞에 있는 정수를 빼고, 그 수를 출력한다
-        if DQ:   # Q 안에 값이 존재하는 경우
-            print(DQ.popleft())
+q = deque()
+for _ in range(int(input())):
+    command = input().split()
+    if command[0]=='push':
+        q.append(int(command[1]))
+    elif command[0]== 'pop':
+        if q:
+            print(q.popleft())
         else:
             print(-1)
-
-    if S[0] == 'size':  # 큐에 들어있는 정수의 개수를 출력한다.
-        print(len(DQ))
-
-    if S[0] == 'empty':
-        if DQ:
-            print('0')
+    elif command[0]=='size':
+        print(len(q))
+    elif command[0]=='empty':
+        if q:
+            print(0)
         else:
-            print('1')
-
-    if S[0] == 'front':
-        if DQ:
-            print(DQ[0])
+            print(1)
+    elif command[0]=='front':
+        if q:
+            print(q[0])
         else:
             print(-1)
-
-    if S[0] == 'back':
-        if DQ:
-            print(DQ[-1])
+    elif command[0]=='back':
+        if q:
+            print(q[-1])
         else:
             print(-1)
